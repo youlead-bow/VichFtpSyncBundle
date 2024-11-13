@@ -7,6 +7,7 @@ namespace Vich\FtpSyncBundle\Metadata;
 
 
 use Metadata\AdvancedMetadataFactoryInterface;
+use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 
 final readonly class MetadataReader
 {
