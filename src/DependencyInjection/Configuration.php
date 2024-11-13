@@ -58,6 +58,8 @@ class Configuration implements ConfigurationInterface
                                         ->variableNode('options')->defaultNull()->end()
                                     ->end()
                                 ->end()
+                                ->scalarNode('delete_on_remove')->defaultTrue()->end()
+                                ->scalarNode('delete_on_update')->defaultTrue()->end()
                             ->end()
                         ->end()
                     ->end()
