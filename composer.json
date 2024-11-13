@@ -1,5 +1,11 @@
 {
     "require": {
+        "php": "^8.3",
         "vich/uploader-bundle": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vich\\FtpSyncBundle\\": "src"
+        }
     }
 }
