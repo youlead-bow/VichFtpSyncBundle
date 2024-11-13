@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Vich\FtpSyncBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class VichFtpSyncBundle extends Bundle
+class VichFtpSyncBundle extends AbstractBundle
 {
 
 }

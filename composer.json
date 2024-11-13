@@ -5,7 +5,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Vich\\FtpSyncBundle\\": "src"
+            "Vich\\FtpSyncBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vich\\FtpSyncBundle\\Tests\\": "tests/"
         }
     }
 }
