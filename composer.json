@@ -1,5 +1,5 @@
 {
-    "name": "youlead/vich-ftp-sync",
+    "name": "youlead-bow/vich-ftp-sync",
     "type": "symfony-bundle",
     "description": "Permet de synchroniser par FTP les fichiers attachés aux entités",
     "keywords": [
