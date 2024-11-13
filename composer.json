@@ -1,4 +1,13 @@
 {
+    "name": "vich/ftp-sync",
+    "type": "symfony-bundle",
+    "description": "Permet de synchroniser par FTP les fichiers attachés aux entités",
+    "keywords": [
+        "file sync",
+        "ftp"
+    ],
+    "homepage": "https://github.com/youlead-bow/VichFtpSyncBundle",
+    "license": "MIT",
     "require": {
         "php": "^8.3",
         "vich/uploader-bundle": "^2.4"
