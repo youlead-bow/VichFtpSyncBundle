@@ -4,6 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Vich\FtpSyncBundle\:
-        resource: '../../*'
-        exclude: '../../{DependencyInjection,Tests}'
+    Vich\FtpSyncBundle\Command\:
+        resource: '../src/Command'
+        tags: [ 'console.command' ]

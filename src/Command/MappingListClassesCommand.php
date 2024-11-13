@@ -12,10 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vich\FtpSyncBundle\Metadata\MetadataReader;
 
-#[AsCommand(
-    name: "vich:ftp:sync:mapping:list-classes",
-    description: "Recherche des classes ftpsyncable"
-)]
+#[AsCommand(name: 'vfs:mapping:list-classes', description: 'Recherche des classes ftpsyncable')]
 class MappingListClassesCommand extends Command
 {
     public function __construct(private readonly MetadataReader $metadataReader)
