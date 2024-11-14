@@ -68,6 +68,7 @@ services:
             - { name: 'kernel.cache_warmer' }
 
     vich_ftp_sync.command.mapping_list_classes:
+        public: false
         class: Vich\FtpSyncBundle\Command\MappingListClassesCommand
         tags: [ 'console.command' ]
         arguments:
