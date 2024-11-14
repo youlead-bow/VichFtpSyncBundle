@@ -33,8 +33,8 @@ class VichFtpSyncExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yml');
 
-        $this->registerListeners($container, $config);
         $this->registerCacheStrategy($container, $config);
+        $this->registerListeners($container, $config);
     }
 
 
