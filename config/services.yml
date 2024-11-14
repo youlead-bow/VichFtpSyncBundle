@@ -101,6 +101,7 @@ services:
         arguments:
             - ~ # will contain the mapping name
             - '@vich_ftp_sync.metadata_reader'
+            - 'vich_ftp_sync.ftp_handler'
 
     vich_ftp_sync.listener.upload.orm:
         class: Vich\FtpSyncBundle\EventListener\UploadListener
