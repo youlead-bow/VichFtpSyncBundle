@@ -136,7 +136,7 @@ class PropertyMapping
     public function getUploadName(object $obj): string
     {
         if (!$this->hasNamer()) {
-            throw new \RuntimeException('Un nom doit être configuré.');
+            return $this->getFile($obj)->getFilename();
         }
 
         return $this->getNamer()->name($obj, $this);

@@ -24,7 +24,7 @@ abstract class BaseListener
 
     protected function getFtpSyncableFields(object $object): array
     {
-        $fields = $this->metadata->getFtpSyncableField(ClassUtils::getClass($object), $this->mapping);
+        $fields = $this->metadata->getFtpSyncableFields(ClassUtils::getClass($object), $this->mapping);
 
         return \array_map(static fn (array $data): string => $data['propertyName'], $fields);
     }
