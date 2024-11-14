@@ -9,9 +9,8 @@ use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
-use Vich\FtpSyncBundle\Metadata\AnnotationDriver;
 
-readonly class FtpHandler extends AnnotationDriver
+readonly class FtpHandler extends AbstractHandler
 {
     /**
      * @throws ExceptionInterface
