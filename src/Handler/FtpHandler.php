@@ -6,19 +6,24 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\Handler;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
+use Vich\FtpSyncBundle\Util\FtpStorage;
 use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 readonly class FtpHandler
 {
-
     public function __construct(
-        protected PropertyMappingFactory $factory
+        protected PropertyMappingFactory $factory,
+        protected FtpStorage $storage
     ) {
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function upload(object $obj, string $fieldName): void
     {
         $mapping = $this->getMapping($obj, $fieldName);
