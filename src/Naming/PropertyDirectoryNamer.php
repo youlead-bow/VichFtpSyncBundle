@@ -9,6 +9,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Exception\NameGenerationException;
+use Vich\UploaderBundle\Mapping\PropertyMapping as VichPropertyMapping;
 use Vich\UploaderBundle\Naming\ConfigurableInterface as VichConfigurableInterface;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface as VichDirectoryNamerInterface;
 use Vich\UploaderBundle\Util\Transliterator;
@@ -43,7 +44,7 @@ class PropertyDirectoryNamer implements DirectoryNamerInterface, ConfigurableInt
         $this->transliterate = isset($options['transliterate']) ? (bool) $options['transliterate'] : $this->transliterate;
     }
 
-    public function directoryName(object|array $object, PropertyMapping $mapping): string
+    public function directoryName(object|array $object, PropertyMapping|VichPropertyMapping $mapping): string
     {
         if (empty($this->propertyPath)) {
             throw new \LogicException('The property to use can not be determined. Did you call the configure() method?');
