@@ -53,6 +53,8 @@ class FtpStorage
         if ($this->ftp->has($remotePath)) {
             $this->ftp->delete($remotePath);
         }
+
+        return true;
     }
 
     /**
