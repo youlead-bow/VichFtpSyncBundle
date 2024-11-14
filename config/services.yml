@@ -4,6 +4,8 @@ services:
         autoconfigure: true
         public: false
 
-    Vich\FtpSyncBundle\Command\:
-        resource: '../src/Command'
+    vich_ftp_sync.command.mapping_list_classes:
+        class: Vich\FtpSyncBundle\Command\MappingListClassesCommand
         tags: [ 'console.command' ]
+        arguments:
+            -
