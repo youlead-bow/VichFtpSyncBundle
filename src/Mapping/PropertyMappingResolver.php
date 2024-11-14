@@ -29,7 +29,7 @@ final readonly class PropertyMappingResolver implements PropertyMappingResolverI
 
         $config = $this->mappings[$mappingData['mapping']];
 
-        $mapping = new PropertyMapping($fieldName, $mappingData);
+        $mapping = new PropertyMapping($fieldName, $mappingData['fileNameProperty'], $mappingData);
         $mapping->setMappingName($mappingData['mapping']);
         $mapping->setMapping($config);
 
