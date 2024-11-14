@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use League\Flysystem\FilesystemException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class CleanListener extends BaseListener
 {
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function preUpdate(LifecycleEventArgs $event): void
     {

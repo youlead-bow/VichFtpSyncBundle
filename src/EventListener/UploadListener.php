@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use League\Flysystem\FilesystemException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class UploadListener extends BaseListener
 {
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function prePersist(LifecycleEventArgs $event): void
     {
@@ -25,6 +27,7 @@ class UploadListener extends BaseListener
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function preUpdate(LifecycleEventArgs $event): void
     {

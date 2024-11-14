@@ -6,6 +6,7 @@ namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\Proxy;
+use League\Flysystem\FilesystemException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class RemoveListener extends BaseListener
@@ -28,6 +29,7 @@ class RemoveListener extends BaseListener
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function postFlush(): void
     {
