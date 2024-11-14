@@ -12,7 +12,8 @@ final readonly class FtpSyncableField implements AnnotationInterface
 {
 
     public function __construct(
-        private string $mapping
+        private string $mapping,
+        private ?string $fileNameProperty = null
     )
     {
     }
@@ -22,5 +23,8 @@ final readonly class FtpSyncableField implements AnnotationInterface
         return $this->mapping;
     }
 
-
+    public function getFileNameProperty(): ?string
+    {
+        return $this->fileNameProperty;
+    }
 }
