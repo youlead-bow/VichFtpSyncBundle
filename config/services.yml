@@ -68,3 +68,22 @@ services:
         tags: [ 'console.command' ]
         arguments:
             - '@vich_ftp_sync.metadata_reader'
+
+    vich_ftp_sync.listener.doctrine.base:
+        abstract: true
+        public: false
+        arguments:
+            - ~ # will contain the mapping name
+            - '@vich_ftp_sync.metadata_reader'
+
+    vich_ftp_sync.listener.upload.orm:
+        class: Vich\FtpSyncBundle\EventListener\UploadListener
+        parent: vich_ftp_sync.listener.doctrine.base
+
+    vich_ftp_sync.listener.clean.orm:
+        class: Vich\FtpSyncBundle\EventListener\CleanListener
+        parent: vich_ftp_sync.listener.doctrine.base
+
+    vich_ftp_sync.listener.remove.orm:
+        class: Vich\FtpSyncBundle\EventListener\RemoveListener
+        parent: vich_ftp_sync.listener.doctrine.base
