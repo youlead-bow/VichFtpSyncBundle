@@ -153,6 +153,11 @@ class PropertyMapping
         return $this->mapping['destination'];
     }
 
+    public function getFtpDsn(): string
+    {
+        return $this->mapping['ftp_dsn'];
+    }
+
     private function getAccessor(): PropertyAccessor
     {
         if (null !== $this->accessor) {
