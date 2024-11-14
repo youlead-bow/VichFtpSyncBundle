@@ -148,14 +148,9 @@ class PropertyMapping
         return $dir ? \rtrim($dir, '/\\') : $dir;
     }
 
-    public function getUploadDestination(): string
+    public function getDestination(): string
     {
-        return $this->mapping['upload_destination'];
-    }
-
-    public function getUriPrefix(): string
-    {
-        return $this->mapping['uri_prefix'];
+        return $this->mapping['destination'];
     }
 
     private function getAccessor(): PropertyAccessor
