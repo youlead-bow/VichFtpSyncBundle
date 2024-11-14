@@ -127,6 +127,13 @@ services:
             - '@vich_ftp_sync.property_mapping_factory'
             - '@vich_ftp_sync.storage'
 
+    vich_ftp_sync.url_handler:
+        class: Vich\FtpSyncBundle\Handler\UrlHandler
+        public: true
+        arguments:
+            - '@vich_ftp_sync.property_mapping_factory'
+            - '@vich_ftp_sync.storage'
+
     # Naming
     vich_ftp_sync.namer_directory_property:
         public: true
