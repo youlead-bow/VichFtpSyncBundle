@@ -5,19 +5,62 @@ declare(strict_types=1);
 
 namespace Vich\FtpSyncBundle\Handler;
 
-
-use League\Flysystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
+use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 readonly class FtpHandler
 {
-    private Filesystem $ftp;
 
     public function __construct(
         protected PropertyMappingFactory $factory
     ) {
+    }
+
+    public function upload(object $obj, string $fieldName): void
+    {
+        $mapping = $this->getMapping($obj, $fieldName);
+
+        // nothing to upload
+        if (!$this->hasUploadedFile($obj, $mapping)) {
+            return;
+        }
+
+        $this->storage->upload($obj, $mapping);
+    }
+
+    public function clean(object $obj, string $fieldName): void
+    {
+        $mapping = $this->getMapping($obj, $fieldName);
+
+        // nothing uploaded, do not remove anything
+        if (!$this->hasUploadedFile($obj, $mapping)) {
+            return;
+        }
+
+        $this->remove($obj, $fieldName);
+    }
+
+    public function remove(object $obj, string $fieldName): void
+    {
+        $mapping = $this->getMapping($obj, $fieldName);
+        $oldFilename = $mapping->getFile($obj)->getFilename();
+
+        // nothing to remove, avoid dispatching useless events
+        if (empty($oldFilename)) {
+            return;
+        }
+
+        $this->storage->remove($obj, $mapping);
+    }
+
+    protected function hasUploadedFile(object $obj, PropertyMapping $mapping): bool
+    {
+        $file = $mapping->getFile($obj);
+
+        return $file instanceof UploadedFile || $file instanceof ReplacingFile;
     }
 
     /**
@@ -33,6 +76,4 @@ readonly class FtpHandler
 
         return $mapping;
     }
-
-
 }
