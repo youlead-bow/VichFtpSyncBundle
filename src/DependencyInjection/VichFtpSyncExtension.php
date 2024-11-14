@@ -52,10 +52,10 @@ class VichFtpSyncExtension extends Extension
     protected function registerCacheStrategy(ContainerBuilder $container, array $config): void
     {
         if ('none' === $config['metadata']['cache']) {
-            $container->removeAlias('vich_ftp_sync_uploader.metadata.cache');
+            $container->removeAlias('vich_ftp_sync.metadata.cache');
         } elseif ('file' === $config['metadata']['cache']) {
             $container
-                ->getDefinition('vich_ftp_sync_uploader.metadata.cache.file_cache')
+                ->getDefinition('vich_ftp_sync.metadata.cache.file_cache')
                 ->replaceArgument(0, $config['metadata']['file_cache']['dir'])
             ;
             $container
@@ -68,7 +68,7 @@ class VichFtpSyncExtension extends Extension
                 throw new \RuntimeException(\sprintf('Could not create cache directory "%s".', $dir));
             }
         } else {
-            $container->setAlias('vich_ftp_sync_uploader.metadata.cache', new Alias($config['metadata']['cache'], false));
+            $container->setAlias('vich_ftp_sync.metadata.cache', new Alias($config['metadata']['cache'], false));
         }
     }
 

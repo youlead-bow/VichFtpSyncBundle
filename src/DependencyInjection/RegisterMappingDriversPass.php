@@ -25,12 +25,12 @@ class RegisterMappingDriversPass implements CompilerPassInterface
         }
 
         if (count($managers) > 0) {
-            $drivers[] = $container->getDefinition('vich_uploader.metadata_driver.annotation')
+            $drivers[] = $container->getDefinition('vich_ftp_sync.metadata_driver.annotation')
                 ->replaceArgument('$managerRegistryList', $managers);
         }
 
         $container
-            ->getDefinition('vich_uploader.metadata_driver.chain')
+            ->getDefinition('vich_ftp_sync.metadata_driver.chain')
             ->replaceArgument(0, $drivers);
     }
 }
