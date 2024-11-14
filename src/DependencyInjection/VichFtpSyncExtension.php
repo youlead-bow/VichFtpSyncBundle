@@ -34,6 +34,7 @@ class VichFtpSyncExtension extends Extension
         $loader->load('services.yml');
 
         $this->registerListeners($container, $config);
+        $this->registerCacheStrategy($container, $config);
     }
 
 
