@@ -4,8 +4,71 @@ services:
         autoconfigure: true
         public: false
 
+    vich_ftp_sync.metadata.file_locator:
+        class: Metadata\Driver\FileLocator
+        arguments:
+            - { type: collection }  # namespace prefixes mapping to directories, injected by extension
+
+    vich_ftp_sync.metadata.attribute_reader:
+        class: Vich\FtpSyncBundle\Metadata\AttributeReader
+        public: false
+
+    vich_ftp_sync.metadata_driver.annotation:
+        class: Vich\FtpSyncBundle\Metadata\AnnotationDriver
+        public: false
+        arguments:
+            $reader: '@vich_ftp_sync.metadata.attribute_reader'
+            $managerRegistryList: ~
+
+    vich_ftp_sync.metadata_driver.chain:
+        class: Metadata\Driver\DriverChain
+        public: false
+        arguments:
+            - ~ # injected by compiler pass
+            -
+    vich_ftp_sync.metadata_driver:
+        alias: vich_ftp_sync.metadata_driver.chain
+        public: false
+
+    vich_ftp_sync.metadata.cache.file_cache:
+        class: Metadata\Cache\FileCache
+        public: false
+        arguments:
+            - ~ # cache directory, injected by extension
+
+    vich_ftp_sync.metadata.cache:
+        alias: vich_uploader.metadata.cache.file_cache
+        public: false
+
+    vich_ftp_sync.metadata_factory:
+        class: Metadata\MetadataFactory
+        public: false
+        arguments:
+            - '@vich_ftp_sync.metadata_driver'
+            - 'Metadata\ClassHierarchyMetadata'
+            - '%kernel.debug%'
+        calls:
+            - method: setCache
+              arguments:
+                  - '@vich_ftp_sync.metadata.cache'
+              on-invalid: ignore
+
+    vich_ftp_sync.metadata_reader:
+        class: Vich\FtpSyncBundle\Metadata\MetadataReader
+        public: false
+        arguments:
+            - '@vich_ftp_sync.metadata_factory'
+
+    Vich\FtpSyncBundle\Metadata\CacheWarmer:
+        public: false
+        arguments:
+            - ~ # cache directory, injected by extension
+            - '@vich_ftp_sync.metadata_reader'
+        tags:
+            - { name: 'kernel.cache_warmer' }
+
     vich_ftp_sync.command.mapping_list_classes:
         class: Vich\FtpSyncBundle\Command\MappingListClassesCommand
         tags: [ 'console.command' ]
         arguments:
-            -
+            - '@vich_ftp_sync.metadata_reader'
