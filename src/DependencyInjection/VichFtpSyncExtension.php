@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Vich\FtpSyncBundle\Metadata\CacheWarmer;
 
 class VichFtpSyncExtension extends Extension
@@ -113,8 +112,7 @@ class VichFtpSyncExtension extends Extension
     ): void {
         $definition = $container
             ->setDefinition(\sprintf('vich_ftp_sync.listener.%s.%s', $type, $name), new ChildDefinition(\sprintf('vich_ftp_sync.listener.%s.orm', $type)))
-            ->replaceArgument(0, $name)
-            ->replaceArgument(1, new Reference('vich_ftp_sync.adapter.orm'));
+            ->replaceArgument(0, $name);
 
         foreach ($events as $event) {
             $definition->addTag('doctrine.event_listener', ['event' => $event, 'priority' => $priority]);
