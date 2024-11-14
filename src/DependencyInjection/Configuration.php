@@ -37,7 +37,7 @@ class Configuration implements ConfigurationInterface
                             ->arrayNode('file_cache')
                             ->addDefaultsIfNotSet()
                                 ->children()
-                                    ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/vich_ftp_sync_uploader')->end()
+                                    ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/vich_ftp_sync')->end()
                                 ->end()
                             ->end()
                         ->end()
