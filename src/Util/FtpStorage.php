@@ -10,10 +10,9 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\Ftp\FtpAdapter;
 use League\Flysystem\Ftp\FtpConnectionOptions;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
-use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 class FtpStorage
 {
@@ -27,8 +26,8 @@ class FtpStorage
     {
         $this->getFTP($mapping);
         $file = $mapping->getFile($obj);
-        if (!$file instanceof UploadedFile && !$file instanceof ReplacingFile) {
-            throw new \LogicException('No uploadable file found');
+        if (!$file instanceof File) {
+            throw new \LogicException('Aucun fichier trouvé');
         }
 
         $remotePath = $mapping->getUploadPath($obj);
