@@ -1,9 +1,4 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
     vich_ftp_sync.metadata.file_locator:
         class: Metadata\Driver\FileLocator
         arguments:
