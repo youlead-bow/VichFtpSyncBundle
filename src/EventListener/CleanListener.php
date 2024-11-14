@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vich\FtpSyncBundle\EvenListener\Doctrine;
+namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
@@ -12,15 +12,12 @@ class CleanListener extends BaseListener
     {
         $object = $event->getObject();
 
-        if (!$this->isUploadable($object)) {
+        if (!$this->isFtpSyncable($object)) {
             return;
         }
 
-        foreach ($this->getUploadableFields($object) as $field) {
-            //$this->handler->clean($object, $field);
+        foreach ($this->getFtpSyncableFields($object) as $field) {
             // TODO A compléter
         }
-
-        $this->adapter->recomputeChangeSet($event);
     }
 }

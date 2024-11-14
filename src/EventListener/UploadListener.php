@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vich\FtpSyncBundle\EvenListener\Doctrine;
+namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
@@ -11,11 +11,10 @@ class UploadListener extends BaseListener
     public function prePersist(LifecycleEventArgs $event): void
     {
         $object = $event->getObject();
-        if (!$this->isUploadable($object)) {
+        if (!$this->isFtpSyncable($object)) {
             return;
         }
-        foreach ($this->getUploadableFields($object) as $field) {
-            //$this->handler->upload($object, $field);
+        foreach ($this->getFtpSyncableFields($object) as $field) {
             // TODO A compléter
         }
     }
@@ -23,15 +22,12 @@ class UploadListener extends BaseListener
     public function preUpdate(LifecycleEventArgs $event): void
     {
         $object = $event->getObject();
-        if (!$this->isUploadable($object)) {
+        if (!$this->isFtpSyncable($object)) {
             return;
         }
 
-        foreach ($this->getUploadableFields($object) as $field) {
+        foreach ($this->getFtpSyncableFields($object) as $field) {
             // TODO A compléter
-            //$this->handler->upload($object, $field);
         }
-
-        $this->adapter->recomputeChangeSet($event);
     }
 }

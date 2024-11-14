@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vich\FtpSyncBundle\EvenListener\Doctrine;
+namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
@@ -16,7 +16,7 @@ class RemoveListener extends BaseListener
     public function preRemove(LifecycleEventArgs $event): void
     {
         $object = $event->getObject();
-        if ($this->isUploadable($object)) {
+        if ($this->isFtpSyncable($object)) {
             // TODO A compléter
         }
     }
@@ -24,8 +24,7 @@ class RemoveListener extends BaseListener
     public function postFlush(): void
     {
         foreach ($this->entities as $object) {
-            foreach ($this->getUploadableFields($object) as $field) {
-                $this->handler->remove($object, $field);
+            foreach ($this->getFtpSyncableFields($object) as $field) {
                 // TODO A compléter
             }
         }
