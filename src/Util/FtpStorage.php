@@ -32,8 +32,8 @@ class FtpStorage
         }
 
         $remotePath = $mapping->getUploadPath($obj);
-        $content = $file->getContent();
-        $this->ftp->write($remotePath, $content);
+        $stream = fopen($file->getRealPath(), 'r+');
+        $this->ftp->writeStream($remotePath, $stream, ['visibility' => 'public']);
     }
 
     /**
