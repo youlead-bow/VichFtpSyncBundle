@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vich\FtpSyncBundle\EventListener;
 
+use Vich\FtpSyncBundle\Handler\FtpHandler;
 use Vich\FtpSyncBundle\Metadata\MetadataReader;
 use Vich\UploaderBundle\Util\ClassUtils;
 
@@ -11,7 +12,8 @@ abstract class BaseListener
 {
     public function __construct(
         protected readonly string $mapping,
-        protected readonly MetadataReader $metadata
+        protected readonly MetadataReader $metadata,
+        protected readonly FtpHandler $handler
     ) {
     }
 

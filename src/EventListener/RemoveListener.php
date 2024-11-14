@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class RemoveListener extends BaseListener
 {
@@ -21,11 +22,14 @@ class RemoveListener extends BaseListener
         }
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function postFlush(): void
     {
         foreach ($this->entities as $object) {
             foreach ($this->getFtpSyncableFields($object) as $field) {
-                // TODO A compléter
+                $this->handler->remove($object, $field);
             }
         }
         $this->entities = [];

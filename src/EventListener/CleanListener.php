@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class CleanListener extends BaseListener
 {
+    /**
+     * @throws ExceptionInterface
+     */
     public function preUpdate(LifecycleEventArgs $event): void
     {
         $object = $event->getObject();
@@ -17,7 +21,7 @@ class CleanListener extends BaseListener
         }
 
         foreach ($this->getFtpSyncableFields($object) as $field) {
-            // TODO A compléter
+            $this->handler->clean($object, $field);
         }
     }
 }
