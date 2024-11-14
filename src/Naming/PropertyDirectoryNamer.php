@@ -9,9 +9,11 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Exception\NameGenerationException;
+use Vich\UploaderBundle\Naming\ConfigurableInterface as VichConfigurableInterface;
+use Vich\UploaderBundle\Naming\DirectoryNamerInterface as VichDirectoryNamerInterface;
 use Vich\UploaderBundle\Util\Transliterator;
 
-class PropertyDirectoryNamer implements DirectoryNamerInterface, ConfigurableInterface
+class PropertyDirectoryNamer implements DirectoryNamerInterface, ConfigurableInterface, VichDirectoryNamerInterface, VichConfigurableInterface
 {
     private ?string $propertyPath = null;
 
@@ -49,6 +51,10 @@ class PropertyDirectoryNamer implements DirectoryNamerInterface, ConfigurableInt
 
         try {
             $name = $this->propertyAccessor->getValue($object, $this->propertyPath);
+            if($name instanceof \BackedEnum){
+                $name = $name->value;
+            }
+
         } catch (NoSuchPropertyException $e) {
             throw new NameGenerationException(\sprintf('Directory name could not be generated: property %s does not exist.', $this->propertyPath), $e->getCode(), $e);
         }
