@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Proxy;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class RemoveListener extends BaseListener
@@ -18,7 +19,10 @@ class RemoveListener extends BaseListener
     {
         $object = $event->getObject();
         if ($this->isFtpSyncable($object)) {
-            // TODO A compléter
+            if ($object instanceof Proxy) {
+                $object->__load();
+            }
+            $this->entities[] = clone $object;
         }
     }
 
