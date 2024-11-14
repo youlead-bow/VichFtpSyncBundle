@@ -36,6 +36,9 @@ readonly class FtpHandler
         $this->storage->upload($obj, $mapping);
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function clean(object $obj, string $fieldName): void
     {
         $mapping = $this->getMapping($obj, $fieldName);
@@ -48,6 +51,9 @@ readonly class FtpHandler
         $this->remove($obj, $fieldName);
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function remove(object $obj, string $fieldName): void
     {
         $mapping = $this->getMapping($obj, $fieldName);
