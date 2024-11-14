@@ -54,6 +54,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('id')
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('uri_prefix')->isRequired()->end()
                             ->scalarNode('ftp_dsn')->isRequired()->end()
                             ->scalarNode('destination')->isRequired()->end()
                             ->arrayNode('namer')
