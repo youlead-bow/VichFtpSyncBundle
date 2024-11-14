@@ -42,9 +42,9 @@ class FtpStorage
     public function remove(object $obj, PropertyMapping $mapping): ?bool
     {
         $this->getFTP($mapping);
-        $name = $mapping->getFile($obj)->getFilename();
+        $oldFilename = $mapping->getFileName($obj);
 
-        if (empty($name)) {
+        if (empty($oldFilename)) {
             return false;
         }
 

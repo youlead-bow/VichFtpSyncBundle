@@ -151,7 +151,7 @@ class PropertyMapping
     public function getUploadName(object $obj): string
     {
         if (!$this->hasNamer()) {
-            return $this->getFile($obj)->getFilename();
+            return $this->getFileName($obj);
         }
 
         return $this->getNamer()->name($obj, $this);
