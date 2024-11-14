@@ -64,7 +64,7 @@ class FtpStorage
         $passport = FtpPasseport::getInstance($mapping->getFtpDsn());
 
         $adapter = new FtpAdapter(FtpConnectionOptions::fromArray([
-            'host' => $passport->getUri(),
+            'host' => $passport->getHost(),
             'username' => $passport->getUser(),
             'password' => $passport->getPass(),
             'port' => $passport->getPort(),
