@@ -7,11 +7,13 @@ namespace Vich\FtpSyncBundle\DependencyInjection;
 
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
+use Vich\FtpSyncBundle\Metadata\CacheWarmer;
 
 class VichFtpSyncExtension extends Extension
 {
@@ -44,6 +46,29 @@ class VichFtpSyncExtension extends Extension
         }
 
         return $config;
+    }
+
+    protected function registerCacheStrategy(ContainerBuilder $container, array $config): void
+    {
+        if ('none' === $config['metadata']['cache']) {
+            $container->removeAlias('vich_ftp_sync_uploader.metadata.cache');
+        } elseif ('file' === $config['metadata']['cache']) {
+            $container
+                ->getDefinition('vich_ftp_sync_uploader.metadata.cache.file_cache')
+                ->replaceArgument(0, $config['metadata']['file_cache']['dir'])
+            ;
+            $container
+                ->getDefinition(CacheWarmer::class)
+                ->replaceArgument(0, $config['metadata']['file_cache']['dir'])
+            ;
+
+            $dir = $container->getParameterBag()->resolveValue($config['metadata']['file_cache']['dir']);
+            if (!\file_exists($dir) && !@\mkdir($dir, 0o777, true)) {
+                throw new \RuntimeException(\sprintf('Could not create cache directory "%s".', $dir));
+            }
+        } else {
+            $container->setAlias('vich_ftp_sync_uploader.metadata.cache', new Alias($config['metadata']['cache'], false));
+        }
     }
 
     protected function createNamerService(ContainerBuilder $container, string $mappingName, array $mapping): array
