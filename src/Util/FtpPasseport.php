@@ -19,7 +19,7 @@ class FtpPasseport
         private ?string $pass = null,
         private ?string $path = null,
         private int $port = self::DEFAULT_PORT,
-        private string $protocol = 'https'
+        private string $protocol = 'ftp'
     )
     {
     }

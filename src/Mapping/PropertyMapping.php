@@ -140,7 +140,11 @@ class PropertyMapping
 
     public function getUploadPath(object $obj): string
     {
-        $path = [$this->getUploadDir($obj), $this->getUploadName($obj)];
+        $path = [
+            $this->getDestination(),
+            $this->getUploadDir($obj),
+            $this->getUploadName($obj)
+        ];
         return implode('/', \array_filter($path));
     }
 

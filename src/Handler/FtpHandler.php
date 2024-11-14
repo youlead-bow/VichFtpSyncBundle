@@ -6,13 +6,12 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\Handler;
 
 use League\Flysystem\FilesystemException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
 use Vich\FtpSyncBundle\Util\FtpStorage;
-use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 readonly class FtpHandler
 {
@@ -31,7 +30,7 @@ readonly class FtpHandler
         $mapping = $this->getMapping($obj, $fieldName);
 
         // nothing to upload
-        if (!$this->hasUploadedFile($obj, $mapping)) {
+        if (!$this->hasFile($obj, $mapping)) {
             return;
         }
 
@@ -47,7 +46,7 @@ readonly class FtpHandler
         $mapping = $this->getMapping($obj, $fieldName);
 
         // nothing uploaded, do not remove anything
-        if (!$this->hasUploadedFile($obj, $mapping)) {
+        if (!$this->hasFile($obj, $mapping)) {
             return;
         }
 
@@ -71,11 +70,11 @@ readonly class FtpHandler
         $this->storage->remove($obj, $mapping);
     }
 
-    protected function hasUploadedFile(object $obj, PropertyMapping $mapping): bool
+    protected function hasFile(object $obj, PropertyMapping $mapping): bool
     {
         $file = $mapping->getFile($obj);
 
-        return $file instanceof UploadedFile || $file instanceof ReplacingFile;
+        return $file instanceof File;
     }
 
     /**
