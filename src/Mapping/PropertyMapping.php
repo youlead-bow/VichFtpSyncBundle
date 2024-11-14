@@ -7,8 +7,8 @@ namespace Vich\FtpSyncBundle\Mapping;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
-use Vich\UploaderBundle\Naming\NamerInterface;
+use Vich\FtpSyncBundle\Naming\DirectoryNamerInterface;
+use Vich\FtpSyncBundle\Naming\NamerInterface;
 use Vich\UploaderBundle\Util\PropertyPathUtils;
 
 class PropertyMapping
