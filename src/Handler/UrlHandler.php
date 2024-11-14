@@ -19,6 +19,6 @@ readonly class UrlHandler extends AbstractHandler
     {
         $mapping = $this->getMapping($obj, $fieldName);
 
-        return '';
+        return $mapping->getUri($obj);
     }
 }
