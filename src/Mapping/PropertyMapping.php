@@ -28,11 +28,11 @@ class PropertyMapping
 
     private ?PropertyAccessor $accessor = null;
 
-    public function __construct(string $filePropertyPath, array $propertyPaths = [])
+    public function __construct(string $filePropertyPath, string $fileNamePropertyPath, array $propertyPaths = [])
     {
         $this->propertyPaths = \array_merge(
             $this->propertyPaths,
-            ['file' => $filePropertyPath],
+            ['file' => $filePropertyPath, 'name' => $fileNamePropertyPath],
             $propertyPaths
         );
     }
