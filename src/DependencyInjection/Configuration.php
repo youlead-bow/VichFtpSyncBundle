@@ -20,11 +20,31 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('vich_ftp_sync');
         $rootNode = $treeBuilder->getRootNode();
+        $this->addMetadataSection($rootNode);
         $this->addMappingsSection($rootNode);
 
         return $treeBuilder;
     }
 
+    private function addMetadataSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('metadata')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('cache')->defaultValue('file')->end()
+                            ->arrayNode('file_cache')
+                            ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->scalarNode('dir')->defaultValue('%kernel.cache_dir%/vich_ftp_sync_uploader')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
 
     private function addMappingsSection(ArrayNodeDefinition $node): void
     {
