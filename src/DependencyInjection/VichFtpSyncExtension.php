@@ -29,7 +29,7 @@ class VichFtpSyncExtension extends Extension
         $container->setParameter('vich_ftp_sync.mappings', $config['mappings']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('services.yaml');
+        $loader->load('services.yml');
 
         $this->registerListeners($container, $config);
     }
