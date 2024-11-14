@@ -22,7 +22,8 @@ class PropertyMapping
     private ?string $mappingName = null;
 
     private array $propertyPaths = [
-        'file' => null
+        'file' => null,
+        'name' => null
     ];
 
     private ?PropertyAccessor $accessor = null;
@@ -44,6 +45,16 @@ class PropertyMapping
     public function setFile(object $obj, File $file): void
     {
         $this->writeProperty($obj, 'file', $file);
+    }
+
+    public function getFileName(object|array $obj): ?string
+    {
+        return $this->readProperty($obj, 'name');
+    }
+
+    public function setFileName(object $obj, string $value): void
+    {
+        $this->writeProperty($obj, 'name', $value);
     }
 
     public function readProperty(object|array $obj, string $property): mixed
