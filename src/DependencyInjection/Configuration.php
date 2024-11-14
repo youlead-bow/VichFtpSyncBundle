@@ -53,6 +53,7 @@ class Configuration implements ConfigurationInterface
                                             ->ifString()
                                             ->then(static fn ($v) => ['service' => $v, 'options' => []])
                                         ->end()
+                                    ->end()
                                     ->children()
                                         ->scalarNode('service')->defaultNull()->end()
                                         ->variableNode('options')->defaultNull()->end()
