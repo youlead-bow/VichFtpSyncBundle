@@ -6,12 +6,13 @@ namespace Vich\FtpSyncBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterMappingDriversPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-
+        $drivers = [];
         $managers = [];
         if ($container->hasDefinition('doctrine_mongodb')) {
             $managers[] = new Reference('doctrine_mongodb');
