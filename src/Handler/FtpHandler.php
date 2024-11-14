@@ -8,19 +8,11 @@ namespace Vich\FtpSyncBundle\Handler;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
-use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
-use Vich\FtpSyncBundle\Util\FtpStorage;
+use Vich\FtpSyncBundle\Metadata\AnnotationDriver;
 
-readonly class FtpHandler
+readonly class FtpHandler extends AnnotationDriver
 {
-    public function __construct(
-        protected PropertyMappingFactory $factory,
-        protected FtpStorage $storage
-    ) {
-    }
-
     /**
      * @throws ExceptionInterface
      * @throws FilesystemException
@@ -75,19 +67,5 @@ readonly class FtpHandler
         $file = $mapping->getFile($obj);
 
         return $file instanceof File;
-    }
-
-    /**
-     * @throws MappingNotFoundException
-     */
-    protected function getMapping(object|array $obj, string $fieldName, ?string $className = null): ?PropertyMapping
-    {
-        $mapping = $this->factory->fromField($obj, $fieldName, $className);
-
-        if (null === $mapping) {
-            throw new MappingNotFoundException(\sprintf('Mappage introuvable pour le champ "%s"', $fieldName));
-        }
-
-        return $mapping;
     }
 }
