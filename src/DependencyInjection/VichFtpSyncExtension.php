@@ -84,7 +84,7 @@ class VichFtpSyncExtension extends Extension
     protected function registerListeners(ContainerBuilder $container, array $config): void
     {
         $servicesMap = [
-            'delete_on_update' => ['name' => 'clean', 'priority' => 40, 'events' => ['preUpdate']],
+            'delete_on_update' => ['name' => 'clean', 'priority' => 60, 'events' => ['preUpdate']],
             'delete_on_remove' => ['name' => 'remove', 'priority' => 10, 'events' => ['preRemove', 'postFlush']],
         ];
 
