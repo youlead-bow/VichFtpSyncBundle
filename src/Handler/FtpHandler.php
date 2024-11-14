@@ -30,7 +30,7 @@ readonly class FtpHandler
         $mapping = $this->getMapping($obj, $fieldName);
 
         // nothing to upload
-        if (!$this->hasUploadedFile($obj, $mapping)) {
+        if (!$this->hasFile($obj, $mapping)) {
             return;
         }
 
