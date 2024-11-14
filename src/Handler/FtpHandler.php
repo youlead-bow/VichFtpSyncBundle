@@ -6,12 +6,15 @@ declare(strict_types=1);
 namespace Vich\FtpSyncBundle\Handler;
 
 
+use League\Flysystem\Filesystem;
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
 
 readonly class FtpHandler
 {
+    private Filesystem $ftp;
+
     public function __construct(
         protected PropertyMappingFactory $factory
     ) {
