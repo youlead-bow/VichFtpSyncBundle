@@ -7,11 +7,13 @@ namespace Vich\FtpSyncBundle\Handler;
 
 
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
+use Vich\FtpSyncBundle\Mapping\PropertyMapping;
+use Vich\FtpSyncBundle\Mapping\PropertyMappingFactory;
 
-abstract class AbstractHandler
+readonly class FtpHandler
 {
     public function __construct(
-        protected readonly PropertyMappingFactory $factory
+        protected PropertyMappingFactory $factory
     ) {
     }
 

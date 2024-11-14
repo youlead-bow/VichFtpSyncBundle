@@ -1,4 +1,5 @@
 services:
+    # Metadata
     vich_ftp_sync.metadata.file_locator:
         class: Metadata\Driver\FileLocator
         arguments:
@@ -62,6 +63,29 @@ services:
         tags:
             - { name: 'kernel.cache_warmer' }
 
+    # Mapping
+    vich_ftp_sync.property_mapping_resolver:
+        class: Vich\FtpSyncBundle\Mapping\PropertyMappingResolver
+        public: false
+        arguments:
+            - '@service_container'
+            - '%vich_ftp_sync.mappings%'
+
+    Vich\FtpSyncBundle\Mapping\PropertyMappingResolverInterface:
+        alias: vich_ftp_sync.property_mapping_resolver
+        public: false
+
+    vich_ftp_sync.property_mapping_factory:
+        class: Vich\FtpSyncBundle\Mapping\PropertyMappingFactory
+        public: false
+        arguments:
+            - '@vich_ftp_sync.metadata_reader'
+            - '@vich_ftp_sync.property_mapping_resolver'
+
+    Vich\FtpSyncBundle\Mapping\PropertyMappingFactory:
+        alias: vich_ftp_sync.property_mapping_factory
+        public: false
+
     # Command
     vich_ftp_sync.command.mapping_list_classes:
         public: false
@@ -90,6 +114,12 @@ services:
         class: Vich\FtpSyncBundle\EventListener\RemoveListener
         parent: vich_ftp_sync.listener.doctrine.base
 
+    # Handler
+    vich_ftp_sync.ftp_handler:
+        class: Vich\FtpSyncBundle\Handler\FtpHandler
+        public: true
+        arguments:
+            - '@vich_ftp_sync.property_mapping_factory'
 
     # Naming
     vich_ftp_sync.namer_directory_property:
