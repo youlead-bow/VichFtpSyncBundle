@@ -7,7 +7,7 @@ services:
     vich_ftp_sync.metadata.file_locator:
         class: Metadata\Driver\FileLocator
         arguments:
-            - { type: collection }  # namespace prefixes mapping to directories, injected by extension
+            - []
 
     vich_ftp_sync.metadata.attribute_reader:
         class: Vich\FtpSyncBundle\Metadata\AttributeReader
@@ -25,7 +25,7 @@ services:
         public: false
         arguments:
             - ~ # injected by compiler pass
-            -
+
     vich_ftp_sync.metadata_driver:
         alias: vich_ftp_sync.metadata_driver.chain
         public: false
