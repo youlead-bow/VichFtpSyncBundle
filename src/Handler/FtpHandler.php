@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Vich\FtpSyncBundle\Handler;
 
+use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Vich\FtpSyncBundle\Exception\MappingNotFoundException;
@@ -23,6 +24,7 @@ readonly class FtpHandler
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function upload(object $obj, string $fieldName): void
     {
@@ -38,6 +40,7 @@ readonly class FtpHandler
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function clean(object $obj, string $fieldName): void
     {
@@ -53,6 +56,7 @@ readonly class FtpHandler
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function remove(object $obj, string $fieldName): void
     {

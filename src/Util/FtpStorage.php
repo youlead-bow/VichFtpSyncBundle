@@ -7,6 +7,7 @@ namespace Vich\FtpSyncBundle\Util;
 
 
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
 use League\Flysystem\Ftp\FtpAdapter;
 use League\Flysystem\Ftp\FtpConnectionOptions;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -20,6 +21,7 @@ class FtpStorage
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function upload(object $obj, PropertyMapping $mapping): void
     {
@@ -29,14 +31,14 @@ class FtpStorage
             throw new \LogicException('No uploadable file found');
         }
 
-        $name = $mapping->getUploadName($obj);
-        $dir = $mapping->getUploadDir($obj);
-
-        //TODO: faire upload ftp
+        $remotePath = $mapping->getUploadPath($obj);
+        $content = $file->getContent();
+        $this->ftp->write($remotePath, $content);
     }
 
     /**
      * @throws ExceptionInterface
+     * @throws FilesystemException
      */
     public function remove(object $obj, PropertyMapping $mapping): ?bool
     {
@@ -47,7 +49,10 @@ class FtpStorage
             return false;
         }
 
-        //TODO: faire remove ftp
+        $remotePath = $mapping->getUploadPath($obj);
+        if ($this->ftp->has($remotePath)) {
+            $this->ftp->delete($remotePath);
+        }
     }
 
     /**

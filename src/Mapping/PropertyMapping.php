@@ -127,6 +127,12 @@ class PropertyMapping
         $this->mappingName = $mappingName;
     }
 
+    public function getUploadPath(object $obj): string
+    {
+        $path = [$this->getUploadDir($obj), $this->getUploadName($obj)];
+        return implode('/', \array_filter($path));
+    }
+
     public function getUploadName(object $obj): string
     {
         if (!$this->hasNamer()) {
