@@ -22,21 +22,16 @@ class PropertyMapping
     private ?string $mappingName = null;
 
     private array $propertyPaths = [
-        'file' => null,
-        'name' => null,
-        'size' => null,
-        'mimeType' => null,
-        'originalName' => null,
-        'dimensions' => null,
+        'file' => null
     ];
 
     private ?PropertyAccessor $accessor = null;
 
-    public function __construct(string $filePropertyPath, string $fileNamePropertyPath, array $propertyPaths = [])
+    public function __construct(string $filePropertyPath, array $propertyPaths = [])
     {
         $this->propertyPaths = \array_merge(
             $this->propertyPaths,
-            ['file' => $filePropertyPath, 'name' => $fileNamePropertyPath],
+            ['file' => $filePropertyPath],
             $propertyPaths
         );
     }
@@ -49,15 +44,6 @@ class PropertyMapping
     public function setFile(object $obj, File $file): void
     {
         $this->writeProperty($obj, 'file', $file);
-    }
-    public function getFileName(object|array $obj): ?string
-    {
-        return $this->readProperty($obj, 'name');
-    }
-
-    public function setFileName(object $obj, string $value): void
-    {
-        $this->writeProperty($obj, 'name', $value);
     }
 
     public function readProperty(object|array $obj, string $property): mixed
@@ -94,11 +80,6 @@ class PropertyMapping
     public function getFilePropertyName(): string
     {
         return $this->propertyPaths['file'];
-    }
-
-    public function getFileNamePropertyName(): string
-    {
-        return $this->propertyPaths['name'];
     }
 
     public function getNamer(): ?NamerInterface
