@@ -17,25 +17,11 @@ abstract class BaseListener
     ) {
     }
 
-    /**
-     * Checks if the given object is uploadable using the current mapping.
-     *
-     * @param object $object The object to test
-     */
     protected function isFtpSyncable(object $object): bool
     {
         return $this->metadata->isFtpSyncable(ClassUtils::getClass($object), $this->mapping);
     }
 
-    /**
-     * Returns a list of uploadable fields for the given object and mapping.
-     *
-     * @param object $object The object to use
-     *
-     * @return array|string[] A list of field names
-     *
-     * @throws \Vich\UploaderBundle\Exception\MappingNotFoundException
-     */
     protected function getFtpSyncableFields(object $object): array
     {
         $fields = $this->metadata->getFtpSyncableFields(ClassUtils::getClass($object), $this->mapping);
