@@ -62,6 +62,7 @@ services:
         tags:
             - { name: 'kernel.cache_warmer' }
 
+    # Command
     vich_ftp_sync.command.mapping_list_classes:
         public: false
         class: Vich\FtpSyncBundle\Command\MappingListClassesCommand
@@ -69,6 +70,7 @@ services:
         arguments:
             - '@vich_ftp_sync.metadata_reader'
 
+    # Listener
     vich_ftp_sync.listener.doctrine.base:
         abstract: true
         public: false
@@ -87,3 +89,12 @@ services:
     vich_ftp_sync.listener.remove.orm:
         class: Vich\FtpSyncBundle\EventListener\RemoveListener
         parent: vich_ftp_sync.listener.doctrine.base
+
+
+    # Naming
+    vich_ftp_sync.namer_directory_property:
+        public: true
+        class: Vich\FtpSyncBundle\Naming\PropertyDirectoryNamer
+        arguments:
+            - '@property_accessor' # on-invalid="null"
+            - '@Vich\UploaderBundle\Util\Transliterator'

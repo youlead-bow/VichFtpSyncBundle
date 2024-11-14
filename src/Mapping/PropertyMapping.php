@@ -155,7 +155,6 @@ class PropertyMapping
 
     private function getAccessor(): PropertyAccessor
     {
-        // TODO: reuse original property accessor from forms
         if (null !== $this->accessor) {
             return $this->accessor;
         }

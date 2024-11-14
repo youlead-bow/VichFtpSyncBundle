@@ -9,7 +9,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Vich\FtpSyncBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Exception\NameGenerationException;
-use Transliterator;
+use Vich\UploaderBundle\Util\Transliterator;
 
 class PropertyDirectoryNamer implements DirectoryNamerInterface, ConfigurableInterface
 {
