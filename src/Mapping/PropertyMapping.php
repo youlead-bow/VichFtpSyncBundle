@@ -179,6 +179,21 @@ class PropertyMapping
         return $this->mapping['ftp_dsn'];
     }
 
+    public function getUri($obj): string
+    {
+        $uri = [
+            $this->getUriPrefix(),
+            $this->getUploadDir($obj),
+            $this->getUploadName($obj)
+        ];
+        return implode('/', \array_filter($uri));
+    }
+
+    public function getUriPrefix(): string
+    {
+        return $this->mapping['uri_prefix'];
+    }
+
     private function getAccessor(): PropertyAccessor
     {
         if (null !== $this->accessor) {
