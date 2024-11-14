@@ -115,11 +115,16 @@ services:
         parent: vich_ftp_sync.listener.doctrine.base
 
     # Handler
+    vich_ftp_sync.storage:
+        class: Vich\FtpSyncBundle\Util\FtpStorage
+        public: false
+
     vich_ftp_sync.ftp_handler:
         class: Vich\FtpSyncBundle\Handler\FtpHandler
         public: true
         arguments:
             - '@vich_ftp_sync.property_mapping_factory'
+            - '@vich_ftp_sync.storage'
 
     # Naming
     vich_ftp_sync.namer_directory_property:
