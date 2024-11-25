@@ -134,6 +134,14 @@ services:
             - '@vich_ftp_sync.property_mapping_factory'
             - '@vich_ftp_sync.storage'
 
+    Vich\FtpSyncBundle\Handler\FtpHandler:
+        alias: vich_ftp_sync.ftp_handler
+        public: false
+
+    Vich\FtpSyncBundle\Handler\UrlHandler:
+        alias: vich_ftp_sync.url_handler
+        public: false
+
     # Naming
     vich_ftp_sync.namer_directory_property:
         public: true
